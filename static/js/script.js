@@ -10,6 +10,10 @@ function calculateGST() {
     } else {
         gstamt = 0.07;
     }
-    document.form.gst.value = (fee * gstamt).toFixed(2);
-    document.form.totalfee.value = (fee + (fee * gstamt);
+    
+    var gst = fee * gstamt ;
+    var totalfee = fee + (fee * gstamt);
+    
+    document.form.gst.value = gst.toFixed(2);
+    document.form.totalfee.value = totalfee.toFixed(2);
 }
