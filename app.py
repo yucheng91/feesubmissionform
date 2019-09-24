@@ -26,7 +26,34 @@ def index():
         })
     cursor.close()
     
-    return render_template('index.html',country=country)
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+    sql = "SELECT * FROM transaction JOIN currency ON transaction.currencyid = currency.id ORDER BY transaction.id"
+    cursor.execute(sql)
+    results = []
+    for r in cursor:
+         results.append(r)
+         
+    cursor.close()
+    
+    return render_template('index.html',country=country, results=results)
+    
+@app.route('/', methods=["POST"])
+
+def add_fee():
+
+    date = request.form.get("date")
+    totalfee = request.form.get("totalfee")
+    gst = request.form.get("gst")
+    country = request.form.get("country")
+    
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+    sql= "INSERT INTO transaction (totalfee,gst,date,currencyid) VALUE (%s,%s,%s,%s)"
+    cursor.execute(sql,[totalfee,gst,date,country])
+    
+    connection.commit()
+    cursor.close()
+    
+    return redirect(url_for('index'))
 
 # "magic code" -- boilerplate
 if __name__ == '__main__':

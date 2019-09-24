@@ -5,7 +5,10 @@ function calculateGST() {
     var fee = parseFloat(feeStr);
     
     var country = document.getElementById("country").value;
-    if (country != "Singapore"){
+    console.log(country);
+    
+    // ID for Singapore is 104, using ID value from currency table to link to transaction table.
+    if (country != 104){
         var gstamt = 0;
     } else {
         gstamt = 0.07;

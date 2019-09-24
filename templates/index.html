@@ -22,28 +22,29 @@
               <label class='date'>
                       Date:
                   </label>
-              <input type='date' class='form-control' name='transaction' title="date" min="2019-01-01" max="2019-12-31">
-              <label class='label'>
-                      Fee :
-                  </label>
-              <input type='number' step="0.01" class='form-control' name='fee' placeholder='0.00' onkeyup="calculateGST()">
-              </label>
+              <input type='date' class='form-control' name='date' title="date" min="2019-01-01" max="2019-12-31">
+
               <label class='label'>
                       Country:
                   </label>
-              <select id="country" name='county' class='form-control selectpicker' data-live-search="true">
+              <select id="country" name='country' class='form-control selectpicker' data-live-search="true">
                           {%for d in country %}
-                          <option value='{{ d['country'] }}' {%if d['country'] == country %}selected='selected'{%endif%}>{{ d['country'] }}</option>
+                          <option value='{{ d['id'] }}' {%if d['id'] == id %}selected='selected'{%endif%}>{{ d['country'] }}</option>
                                {%endfor%}
               </select>
+              <label class='label'>
+                  Fee :
+              </label>
+              <input type='number' step="0.01" class='form-control' name='fee' placeholder='0.00' onkeyup="calculateGST()">
+              <br>
                 <label class='label' >
                   Total Amount:
                 </label>
-                <input type="number" name="totalfee" disabled>
+                <input type="number" name="totalfee" readonly>
                 <label class='label' >
                   GST:
                 </label>
-                <input type="number" name="gst" disabled>
+                <input type="number" name="gst" readonly>
                 <br>
               <input type='submit' class='btn btn-primary mt-3'>
               </div>
@@ -60,17 +61,17 @@
               <th>GST</th>
             </tr>
           </thead>
-          {%for r in data%}
+          {%for r in results%}
           <tr>
             <tbody>
               <td>
-                {{ r['description'] }}
+                {{ r['date'] }}
               </td>
               <td>
-                {{ r['cname'] }}
+                {{ r['symbol'] }} {{ r['totalfee'] }}
               </td>
               <td>
-                {{ r['aname'] }}
+                {{ r['gst'] }}
               </td>
             </tbody>
           </tr>
